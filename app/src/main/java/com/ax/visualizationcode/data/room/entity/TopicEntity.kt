@@ -9,6 +9,8 @@ import com.ax.visualizationcode.data.room.TABLE_NAME_TOPIC
 data class TopicEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
+    val index: Int,
+    val title: String,
     val content: String,
     val createTime: Long
 )

@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TopicDao {
 
-//    @Insert
-//    suspend fun insert(user: TopicEntity)
+    @Insert
+    fun insert(user: TopicEntity)
 
     @Query("SELECT * FROM $TABLE_NAME_TOPIC")
     fun getAllTopic(): Flow<List<TopicEntity>>

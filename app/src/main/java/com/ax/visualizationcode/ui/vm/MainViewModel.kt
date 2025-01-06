@@ -16,7 +16,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val topicRepo: TopicRepo) : ViewModel() {
 
     private val _topicState = MutableStateFlow<UiState>(UiState.Loading)
-    val loadingState = _topicState.asStateFlow()
+    val topicState = _topicState.asStateFlow()
 
 
     fun getTopicList() {

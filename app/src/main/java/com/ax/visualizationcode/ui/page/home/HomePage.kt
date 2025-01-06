@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -31,12 +34,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.ax.visualizationcode.UiState
+import com.ax.visualizationcode.ui.vm.MainViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomePage() {
-
+    val viewModel = viewModel<MainViewModel>()
+    val topicState =
+        viewModel.topicState.collectAsStateWithLifecycle() as UiState.Successful<MainViewModel.TopicState>
     var presses by remember { mutableIntStateOf(0) }
     Scaffold(
         topBar = {
@@ -69,8 +78,10 @@ fun HomePage() {
                 ),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            items(5) {
-                CodeItem("1.两数之和")
+            items(
+                topicState.data.topicList ?: arrayListOf()
+            ) {
+                CodeItem(it.title)
             }
         }
     }
